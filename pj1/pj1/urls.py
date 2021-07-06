@@ -24,4 +24,5 @@ urlpatterns = [
     path('c1', views.c1, name='c1'),
     path('c1data', views.c1data, name='c1data'),
     path('iots', views.iots, name='iots'),
+    path('maps', views.maps, name='maps'),
 ]

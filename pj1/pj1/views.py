@@ -6,6 +6,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from myanalysis.p108 import P108
+from myanalysis.part4 import P109
 
 
 def home(request):
@@ -26,3 +27,6 @@ def iots(request):
 	logger = logging.getLogger('users');
 	logger.debug( speed +','+rpm+','+temp);
 	return render(request, 'iotsresult.html')
+def maps(request):
+	P109().mat07()
+	return render(request, 'gyonggi.html')
