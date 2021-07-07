@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="http://code.jquery.com/jquery-1.7.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+  <script>
+      function display(data) {
+          Highcharts.chart('container', {
+    title: {
+        text: 'Combination chart'
+    },
+    xAxis: {
+        categories: data[1]
+    },
+    labels: {
+        items: [{
+            html: 'Total fruit consumption',
+            style: {
+                left: '50px',
+                top: '18px',
+                color: ( // theme
+                    Highcharts.defaultOptions.title.style &&
+                    Highcharts.defaultOptions.title.style.color
+                ) || 'black'
+            }
+        }]
+    },
+    series: data[0]
+});
+      }
+      function getdata(first,end) {
+          $.ajax({
+              url:'genarating',
+              dataType:'JSON',
+              data : {first:first, end:end},
+              success:function(data){
+                    display(data);
+                },
+              error:function(){
+                    alert('err')
+  }
+
+          })
+
+      }
+      $(document).ready(function(){
+                    $('button').eq(0).click(function () {
+                     first = $('select[name="first"]').val();
+                     end = $('select[name="end"]').val();
+                     getdata(first,end);
+                 })
+       });
+  </script>
+<body>
+  <h1>chart2</h1>
+  <!--  high chart p136  -->
+  <!--  시작년도와 끝년도를 선택하여 기간의 데이터를 표시-->
+
+시작년도<select name="first">
+        <script>
+        for(i=1990;i<2017;i++){
+         document.write("<option value='"+i+"'>"+i+"</option>");
+        }
+        </script>
+        </select>
+끝년도<select name="end">
+         <script>
+        for(j=1990;j<2017;j++){
+         document.write("<option value='"+j+"'>"+j+"</option>");
+        }
+        </script>
+        </select>
+  <button>조회</button>
+<div id="container"></div>
+</body>
+</html>

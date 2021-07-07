@@ -25,4 +25,16 @@ urlpatterns = [
     path('c1data', views.c1data, name='c1data'),
     path('iots', views.iots, name='iots'),
     path('maps', views.maps, name='maps'),
+    path('chart1', views.chart1, name='chart1'),
+    path('chart2', views.chart2, name='chart2'),
+    path('chart3', views.chart3, name='chart3'),
+    path('chart4', views.chart4, name='chart4'),
+    # path('chart5', views.chart5, name='chart5'),
+    # path('chart5s', views.chart5s, name='chart5s'),
+    path('tran', views.tran, name='tran'),
+    path('genarating', views.genarating, name='genarating'),
+    path('pop', views.pop, name='pop'),
+    path('tran', views.tran, name='tran'),
+    path('tran', views.tran, name='tran'),
+
 ]

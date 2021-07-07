@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+  <script src="http://code.jquery.com/jquery-1.7.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+  <script>
+      function display(data) {
+         location.href="{% url 'maps' %}";
+      }
+      function getdata(year) {
+          $.ajax({
+              url:'pop',
+              dataType:'JSON',
+              data : {year:year},
+              success:function(data){
+                    display(data);
+                },
+              error:function(){
+                    alert('err')
+  }
+
+          })
+
+      }
+      $(document).ready(function(){
+                    $('button').eq(0).click(function () {
+                     year = $('select[name="year"]').val();
+                     getdata(year);
+                 })
+       });
+  </script>
+<body>
+  <h1>chart4</h1>
+<!--  지도 168p-->
+<!--  2007년부터 2017년까지의 정보를 전송하면 해당 연도 정보 표시-->
+
+
+  년도선택<select name="year">
+        <script>
+        for(i=2007;i<2018;i++){
+         document.write("<option value='"+i+"'>"+i+"</option>");
+        }
+        </script>
+        </select>
+    <button>확인</button>
+<div id="container"></div>
+
+</body>
+</html>

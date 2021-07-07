@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="http://code.jquery.com/jquery-1.7.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+  <script>
+      function display(data) {
+          Highcharts.chart('container', {
+    chart: {
+        type: 'area'
+    },
+    accessibility: {
+        description: ''
+    },
+    title: {
+        text: 'US and USSR nuclear stockpiles'
+    },
+    subtitle: {
+        text: 'Sources: <a href="https://thebulletin.org/2006/july/global-nuclear-stockpiles-1945-2006">' +
+            'thebulletin.org</a> &amp; <a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat">' +
+            'armscontrol.org</a>'
+    },
+    xAxis: {
+        allowDecimals: false,
+        labels: {
+            formatter: function () {
+                return this.value; // clean, unformatted number for year
+            }
+        },
+        accessibility: {
+            rangeDescription: 'Range: 1940 to 2017.'
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'Nuclear weapon states'
+        },
+        labels: {
+            formatter: function () {
+                return this.value / 1000 + 'k';
+            }
+        }
+    },
+    tooltip: {
+        pointFormat: '{series.name} had stockpiled <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+    },
+    plotOptions: {
+        area: {
+            pointStart: 1970,
+            marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                    hover: {
+                        enabled: true
+                    }
+                }
+            }
+        }
+    },
+    series: data
+});
+      }
+      function getdata(tran_place) {
+          $.ajax({
+              url:'tran',
+              dataType:'JSON',
+              data : {tran_place:tran_place},
+              success:function(data){
+                    display(data);
+                },
+              error:function(){
+                    alert('err')
+  }
+
+          })
+
+      }
+      $(document).ready(function(){
+                    $('button').eq(0).click(function () {
+                     tran_place = $('select[name="out"]').val();
+                     getdata(tran_place);
+                 })
+       });
+  </script>
+<body>
+<!--  high chart p130  -->
+<!--  전출지 서울시,경기도 선택을 하여 -->
+<!--  전입지가 강원도 충북 경북 전남을 대상으로 비교-->
+  <h1>chart1</h1>
+  전출지<select name="out">
+         <option value="서울특별시">서울시</option>
+         <option value="경기도">경기도</option>
+        </select>
+    <button name="b1">확인</button>
+    <div id="container"></div>
+</body>
+</html>
