@@ -118,6 +118,7 @@ class WS01:
         return year
 
 
+
 if __name__  == '__main__':
     WS01().chart04('2007')
 
